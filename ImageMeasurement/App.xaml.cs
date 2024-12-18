@@ -43,6 +43,8 @@ namespace ImageMeasurement
 
 			// 뷰모델
 			services.AddSingleton<WImageMeasurementViewModel>();
+			services.AddSingleton<UCImageViewModel>();
+			services.AddSingleton<UCImageListViewModel>();
 
 			return services.BuildServiceProvider();
 		}
