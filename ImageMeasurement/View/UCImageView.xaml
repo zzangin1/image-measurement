@@ -22,8 +22,20 @@
 
         <Label Grid.Row="0" Content=":: Image ::"/>
 
-        <Border Grid.Row="1" Background="Black">
-            <Image x:Name="DisplayImage" Stretch="Uniform" Source="{Binding DisplayImage}"/>
+        <Border Grid.Row="1" Background="Black" ClipToBounds="True">
+            <Canvas Background="Transparent"
+                    MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
+                    MouseMove="Canvas_MouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp">
+                <Canvas x:Name="MoveCanvas">
+                    <Canvas.RenderTransform>
+                        <TranslateTransform x:Name="CanvasTransform"/>
+                    </Canvas.RenderTransform>
+                    <Image x:Name="DisplayImage" Stretch="Uniform" Source="{Binding DisplayImage}"
+                           Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
+                           Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Border}}"/>
+                </Canvas>
+            </Canvas>
         </Border>
     </Grid>
 </UserControl>
