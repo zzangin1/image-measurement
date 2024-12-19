@@ -12,6 +12,10 @@
         <Style TargetType="Label">
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
+        <Style x:Key="MousePosition" TargetType="Label">
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
     </UserControl.Resources>
 
     <Grid>
@@ -36,8 +40,19 @@
                     </Canvas.RenderTransform>
                     <Image x:Name="DisplayImage" Stretch="Uniform" Source="{Binding DisplayImage}"
                            Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
-                           Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Border}}"/>
+                           Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Border}}"
+                           MouseMove="DisplayImage_MouseMove"
+                           MouseLeave="DisplayImage_MouseLeave"/>
                 </Canvas>
+
+                <Border Background="Transparent" Canvas.Bottom="10" Canvas.Left="10">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="X :" Style="{StaticResource MousePosition}"/>
+                        <Label x:Name="MousePositionX" Style="{StaticResource MousePosition}"/>
+                        <Label Content="Y :" Style="{StaticResource MousePosition}"/>
+                        <Label x:Name="MousePositionY" Style="{StaticResource MousePosition}"/>
+                    </StackPanel>
+                </Border>
             </Canvas>
         </Border>
     </Grid>

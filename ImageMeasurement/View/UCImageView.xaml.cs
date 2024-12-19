@@ -79,8 +79,20 @@ namespace ImageMeasurement.View
 			CanvasTranslateTransform.Y -= (newAbsoluteY - absoluteY);
 		}
 
+		private void DisplayImage_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			Point mousePoint = e.GetPosition(DisplayImage);
+
+			MousePositionX.Content = (int)mousePoint.X;
+			MousePositionY.Content = (int)mousePoint.Y;
+		}
+
+		private void DisplayImage_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			MousePositionX.Content = string.Empty;
+			MousePositionY.Content = string.Empty;
+		}
+
 		#endregion => Method
-
-
 	}
 }
