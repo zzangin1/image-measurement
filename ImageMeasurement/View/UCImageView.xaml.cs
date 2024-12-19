@@ -14,6 +14,7 @@ namespace ImageMeasurement.View
 
 		private bool _isDragging = false;
 		private Point _clickCanvasPosition;
+		private Point _previousMousePosition;
 
 		#endregion => Field
 
@@ -34,6 +35,9 @@ namespace ImageMeasurement.View
 			_isDragging = true;
 			_clickCanvasPosition = e.GetPosition(this);
 			MoveCanvas.CaptureMouse();
+
+			MousePositionX.Content = (int)_previousMousePosition.X;
+			MousePositionY.Content = (int)_previousMousePosition.Y;
 		}
 
 		private void Canvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -85,6 +89,8 @@ namespace ImageMeasurement.View
 
 			MousePositionX.Content = (int)mousePoint.X;
 			MousePositionY.Content = (int)mousePoint.Y;
+
+			_previousMousePosition = mousePoint;
 		}
 
 		private void DisplayImage_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
