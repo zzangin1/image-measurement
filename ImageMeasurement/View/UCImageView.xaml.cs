@@ -45,8 +45,8 @@ namespace ImageMeasurement.View
 				double offsetX = currentCanvasPosition.X - _clickCanvasPosition.X;
 				double offsetY = currentCanvasPosition.Y - _clickCanvasPosition.Y;
 
-				CanvasTransform.X += offsetX;
-				CanvasTransform.Y += offsetY;
+				CanvasTranslateTransform.X += offsetX;
+				CanvasTranslateTransform.Y += offsetY;
 
 				_clickCanvasPosition = currentCanvasPosition;
 			}
@@ -56,6 +56,27 @@ namespace ImageMeasurement.View
 		{
 			_isDragging = false;
 			MoveCanvas.ReleaseMouseCapture();
+		}
+
+		private void MoveCanvas_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+		{
+			Point mousePosition = e.GetPosition(MoveCanvas);
+
+			double zoomFactor = e.Delta > 0 ? 1.1 : 0.9;
+
+			// 확대/축소할 위치 계산
+			double absoluteX = mousePosition.X * ImageScaleTransform.ScaleX + CanvasTranslateTransform.X;
+			double absoluteY = mousePosition.Y * ImageScaleTransform.ScaleY + CanvasTranslateTransform.Y;
+
+			ImageScaleTransform.ScaleX *= zoomFactor;
+			ImageScaleTransform.ScaleY *= zoomFactor;
+
+			// 새로운 확대/축소 중심 계산
+			double newAbsoluteX = mousePosition.X * ImageScaleTransform.ScaleX + CanvasTranslateTransform.X;
+			double newAbsoluteY = mousePosition.Y * ImageScaleTransform.ScaleY + CanvasTranslateTransform.Y;
+
+			CanvasTranslateTransform.X -= (newAbsoluteX - absoluteX);
+			CanvasTranslateTransform.Y -= (newAbsoluteY - absoluteY);
 		}
 
 		#endregion => Method

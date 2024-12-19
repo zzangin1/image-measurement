@@ -27,9 +27,12 @@
                     MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
                     MouseMove="Canvas_MouseMove"
                     MouseLeftButtonUp="Canvas_MouseLeftButtonUp">
-                <Canvas x:Name="MoveCanvas">
+                <Canvas x:Name="MoveCanvas" MouseWheel="MoveCanvas_MouseWheel">
                     <Canvas.RenderTransform>
-                        <TranslateTransform x:Name="CanvasTransform"/>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="ImageScaleTransform"/>
+                            <TranslateTransform x:Name="CanvasTranslateTransform"/>
+                        </TransformGroup>
                     </Canvas.RenderTransform>
                     <Image x:Name="DisplayImage" Stretch="Uniform" Source="{Binding DisplayImage}"
                            Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
