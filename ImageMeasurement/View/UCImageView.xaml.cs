@@ -15,8 +15,12 @@ namespace ImageMeasurement.View
 		private bool _isDragging = false;
 		private Point _clickCanvasPosition;
 		private Point _previousMousePosition;
+		private UCImageListViewModel _ucImageListViewModel;
 
 		#endregion => Field
+
+		#region => Property
+		#endregion => Property
 
 		#region => Constructor
 
@@ -24,6 +28,8 @@ namespace ImageMeasurement.View
 		{
 			InitializeComponent();
 			DataContext = App.Current.Services.GetService<UCImageViewModel>();
+			_ucImageListViewModel = App.Current.Services.GetService<UCImageListViewModel>();
+			_ucImageListViewModel.ResetTransform = ResetTransform;
 		}
 
 		#endregion => Constructor
@@ -97,6 +103,14 @@ namespace ImageMeasurement.View
 		{
 			MousePositionX.Content = string.Empty;
 			MousePositionY.Content = string.Empty;
+		}
+
+		private void ResetTransform()
+		{
+			CanvasTranslateTransform.X = 0;
+			CanvasTranslateTransform.Y = 0;
+			ImageScaleTransform.ScaleX = 1.0;
+			ImageScaleTransform.ScaleY = 1.0;
 		}
 
 		#endregion => Method

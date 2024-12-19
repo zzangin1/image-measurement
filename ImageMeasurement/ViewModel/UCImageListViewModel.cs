@@ -20,6 +20,12 @@ namespace ImageMeasurement.ViewModel
 
 		#endregion => Field
 
+		#region => Delegate
+
+		public Action ResetTransform;
+
+		#endregion => Delegate
+
 		#region => Property
 
 		public ObservableCollection<ImageFileModel> ImageFiles { get; set; }
@@ -60,6 +66,7 @@ namespace ImageMeasurement.ViewModel
 
 		partial void OnSelectedImageFileChanged(ImageFileModel value)
 		{
+			ResetTransform?.Invoke();
 			_originalImageMat = new Mat(value.FilePath);
 			_ucImageViewModel.DisplayImage = _originalImageMat.Clone().ToBitmapSource();
 		}
